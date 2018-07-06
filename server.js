@@ -37,11 +37,9 @@ app.use('/sessions', sessionsController);
 Base route
 ---------------------------------------------------*/
 app.get('/', (req, res) => {
-  if(req.session.currentUser) {
-    res.send(req.session.currentUser);
-  } else {
-    res.send('Blah');
-  }
+  res.render('index.ejs', {
+    currentUser: req.session.currentUser
+  })
 })
 
 /*---------------------------------------------------
