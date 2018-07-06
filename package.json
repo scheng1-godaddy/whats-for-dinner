@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/shawnc8160/project2#readme",
   "dependencies": {
+    "bcrypt": "^3.0.0",
+    "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "mongoose": "^5.2.1"
+    "method-override": "^2.3.10",
+    "mongoose": "^5.2.1",
+    "session": "^0.1.0"
   }
 }
