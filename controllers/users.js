@@ -7,6 +7,21 @@ const Users = require('../models/users.js');
 const bcrypt = require('bcrypt');
 
 /*---------------------------------------------------
+Route for user show page
+---------------------------------------------------*/
+usersRouter.get('/:username', (req, res) => {
+    Users.findOne({username: req.params.username}, (err, result) => {
+        if (err) {
+            res.send('Error retrieving user')
+        } else {
+            res.render('./users/index.ejs', {
+                currentUser: result
+            })
+        }
+    })
+});
+
+/*---------------------------------------------------
 Route for new user form
 ---------------------------------------------------*/
 usersRouter.get('/new/', (req, res) => {
@@ -19,7 +34,7 @@ Create route for new user
 usersRouter.post('/', (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
     Users.create(req.body, (err, data) => {
-        res.redirect('/')
+        res.redirect('/users/')
     })
 })
 
