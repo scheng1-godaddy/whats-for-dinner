@@ -37,7 +37,7 @@ app.use('/sessions', sessionsController);
 Base route
 ---------------------------------------------------*/
 app.get('/', (req, res) => {
-  res.send('This works')
+  res.send('Blah')
 })
 
 /*---------------------------------------------------

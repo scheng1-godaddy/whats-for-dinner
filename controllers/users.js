@@ -3,12 +3,12 @@ const usersRouter = express.Router();
 const Users = require('../models/users.js');
 const bcrypt = require('bcrypt');
 
+usersRouter.get('/', (req, res) => {
+    res.send("This is a test")
+})
+
 usersRouter.get('/new/', (req, res) => {
-    if (req.session.currentUser) {
-        res.render('./users/new.ejs');
-    } else {
-        res.redirect('/')
-    }
+    res.render('./users/new.ejs')
 });
 
 usersRouter.post('/', (req, res) => {
