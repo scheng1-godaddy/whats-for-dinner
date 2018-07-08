@@ -25,7 +25,14 @@ Route (POST) to create new entry
 entriesRouter.post('/', (req, res) => {
     if (req.session.currentUser) {
         req.body.img = req.body.img.filter(Boolean);
-        res.send(req.body);
+        req.body.owner = req.session.currentUser._id
+        Entries.create(req.body, (err, data) => {
+            if (err) {
+                res.send('Error creating entry: ' + err)
+            } else {
+                res.redirect('/users/' + req.session.currentUser.username);
+            }
+        })
     } else {
         res.send('You must login to create an entry');
     }
