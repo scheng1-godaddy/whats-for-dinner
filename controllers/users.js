@@ -34,9 +34,17 @@ usersRouter.get('/:username', (req, res) => {
         if (err) {
             res.send('Error retrieving user')
         } else {
+            if (req.session.currentUser) {
+                if (req.session.currentUser.username === req.params.username) {
+                    res.render('./users/index-admin.ejs', {
+                        currentUser: result
+                    })
+                } 
+            }
             res.render('./users/index.ejs', {
-                currentUser: result
+                currentUser: req.session.currentUser
             })
+
         }
     })
 });
