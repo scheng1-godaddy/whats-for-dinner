@@ -6,20 +6,6 @@ const usersRouter = express.Router();
 const Users = require('../models/users.js');
 const bcrypt = require('bcrypt');
 
-/*---------------------------------------------------
-Route for user show page
----------------------------------------------------*/
-usersRouter.get('/:username', (req, res) => {
-    Users.findOne({username: req.params.username}, (err, result) => {
-        if (err) {
-            res.send('Error retrieving user')
-        } else {
-            res.render('./users/index.ejs', {
-                currentUser: result
-            })
-        }
-    })
-});
 
 /*---------------------------------------------------
 Route for new user form
@@ -37,6 +23,21 @@ usersRouter.post('/', (req, res) => {
         res.redirect('/users/')
     })
 })
+
+/*---------------------------------------------------
+Route for user show page
+---------------------------------------------------*/
+usersRouter.get('/:username', (req, res) => {
+    Users.findOne({ username: req.params.username }, (err, result) => {
+        if (err) {
+            res.send('Error retrieving user')
+        } else {
+            res.render('./users/index.ejs', {
+                currentUser: result
+            })
+        }
+    })
+});
 
 // Export the user route
 module.exports = usersRouter;
