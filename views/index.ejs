@@ -11,9 +11,14 @@
     <div class="header-nav">
         <ul>
             <% if (currentUser) { %>
-                <form action="/sessions?_method=DELETE" method="POST">
-                    <input type="submit" value="Logout">
-                </form>
+                <li>
+                    <a href="/users/<%= currentUser.username%>">My Dashboard</a>
+                </li>
+                <li>
+                    <form action="/sessions?_method=DELETE" method="POST">
+                        <input type="submit" value="Logout">
+                    </form>
+                </li>
             <% } else { %>
                 <li>
                     <a href="./sessions/new">Login</a>

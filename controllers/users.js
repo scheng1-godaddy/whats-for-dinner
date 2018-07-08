@@ -20,7 +20,9 @@ Create route for new user
 usersRouter.post('/', (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
     Users.create(req.body, (err, data) => {
-        res.redirect('/users/'+req.body.username)
+        // res.redirect('/users/'+req.body.username)
+        req.session.currentUser = req.body;
+        res.redirect('/');
     })
 })
 
