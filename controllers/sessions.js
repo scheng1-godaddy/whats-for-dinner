@@ -7,14 +7,14 @@ const Users = require('../models/users.js');
 const bcrypt = require('bcrypt');
 
 /*---------------------------------------------------
-Route for new session
+Route for new session (login)
 ---------------------------------------------------*/
 sessionsRouter.get('/new', (req, res) => {
     res.render('./sessions/new.ejs');
 })
 
 /*---------------------------------------------------
-Route to delete session
+Route to delete session (logout)
 ---------------------------------------------------*/
 sessionsRouter.delete('/', (req, res) => {
     req.session.destroy(() => {
@@ -23,7 +23,7 @@ sessionsRouter.delete('/', (req, res) => {
 })
 
 /*---------------------------------------------------
-Dependencies
+Route to create new session
 ---------------------------------------------------*/
 sessionsRouter.post('/', (req, res) => {
     console.log(req.body.username);
