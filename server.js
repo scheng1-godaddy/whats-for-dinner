@@ -32,6 +32,9 @@ app.use('/users', usersController);
 // Sessions
 const sessionsController = require('./controllers/sessions.js');
 app.use('/sessions', sessionsController);
+// Entries
+const entriesController = require('./controllers/entries.js');
+app.use('/entries', entriesController);
 
 /*---------------------------------------------------
 Base route
