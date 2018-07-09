@@ -39,6 +39,22 @@ entriesRouter.post('/', (req, res) => {
 })
 
 /*---------------------------------------------------
+Route (GET) to edit entry page
+---------------------------------------------------*/
+entriesRouter.get('/:entryId/edit', (req, res) => {
+    let currentUser = null;
+    if (req.session.currentUser) {
+        currentUser = req.session.currentUser;
+    }
+    Entries.findById(req.params.entryId, (err, result) => {
+        res.render('./entries/edit.ejs', {
+            currentUser: req.session.currentUser,
+            currentEntry: result,
+        });
+    })
+})
+
+/*---------------------------------------------------
 Route (GET) to show entry detail page
 ---------------------------------------------------*/
 entriesRouter.get('/:entryId', (req, res) => {
@@ -46,10 +62,15 @@ entriesRouter.get('/:entryId', (req, res) => {
     if (req.session.currentUser) {
         currentUser = req.session.currentUser;
     } 
+    let owner = false;
     Entries.findById(req.params.entryId, (err, result) => {
+        if (req.session.currentUser && (result.owner === req.session.currentUser._id)) {
+            owner = true;
+        }
         res.render('./entries/show.ejs', {
             currentUser: req.session.currentUser,
-            currentEntry: result
+            currentEntry: result,
+            owner: owner
         });
     })
 })

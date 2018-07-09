@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -28,30 +30,34 @@
     </div>
     <div>
 
-        <% if (currentUser) { %>
-            You are logged in as <%=currentUser.username %>
-        <% } else { %>
-            You are not logged in
-        <% } %>
+    <% if (currentUser) { %>
+        You are logged in as <%=currentUser.username %>
+    <% } else { %>
+        You are not logged in
+    <% } %>
 
-        <% if (currentEntry) { %>
-            <ul>
-                <li>
-                    <%=currentEntry.description%>
-                </li>
-                <li>
-                    <%=currentEntry.category%>
-                </li>
-                <li>
-                    <%=currentEntry.flavors%>
-                </li>
-                <li>
-                    <%=currentEntry.img%>
-                </li>
-            </ul>
-        <% } else { %>
-            Couldn't find entry
-        <% } %>
+    <% if (owner) { %>
+        <a href="/entries/<%=currentEntry._id%>/edit">Edit Entry</a>
+    <% } %>
+    
+    <% if (currentEntry) { %>
+        <ul>
+            <li>
+                <%=currentEntry.description%>
+            </li>
+            <li>
+                <%=currentEntry.category%>
+            </li>
+            <li>
+                <%=currentEntry.flavors%>
+            </li>
+            <li>
+                <%=currentEntry.img%>
+            </li>
+        </ul>
+    <% } else { %>
+        Couldn't find entry
+    <% } %>
 
     </div>
 </body>
