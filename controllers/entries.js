@@ -55,10 +55,10 @@ entriesRouter.get('/:entryId/edit', (req, res) => {
 })
 
 /*---------------------------------------------------
-Route for user update
+Route for entry update
 ---------------------------------------------------*/
 entriesRouter.put('/:entryId', (req, res) => {
-    // Check if the logged in user is the owner
+    // Retrieve entry so that we can get the owner id
     Entries.findById(req.params.entryId, (err, result) => {
         if (!err && result) {
             if(req.session.currentUser._id === result.owner) {
@@ -70,6 +70,29 @@ entriesRouter.put('/:entryId', (req, res) => {
     })
     res.redirect('/entries/'+req.params.entryId);
     
+})
+
+/*---------------------------------------------------
+Route for entry delete
+---------------------------------------------------*/
+entriesRouter.delete('/:entryId', (req, res) => {
+    // Retrieve entry so that we can get the owner id
+    Entries.findById(req.params.entryId, (err, result) => {
+        if (!err && result) {
+            // Check if logged in user is the owner
+            if (req.session.currentUser._id === result.owner) {
+                Entries.findByIdAndRemove(req.params.entryId, (err, result) => {
+                    if (err) {
+                        console.log('Error while deleting entry', err);
+                    } else {
+                        console.log('Removed entry: ', result);
+                    }
+                })
+            }
+        }
+    })
+    res.redirect('/users/'+req.session.currentUser.username);
+
 })
 
 /*---------------------------------------------------
