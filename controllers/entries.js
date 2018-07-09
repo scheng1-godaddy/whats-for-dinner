@@ -15,7 +15,7 @@ entriesRouter.get('/new', (req, res) => {
             currentUser: req.session.currentUser
         });
     } else {
-        res.send('You must login to create an entry')
+        res.send('You must login to create an entry');
     }
 })
 
@@ -25,10 +25,11 @@ Route (POST) to create new entry
 entriesRouter.post('/', (req, res) => {
     if (req.session.currentUser) {
         req.body.img = req.body.img.filter(Boolean);
-        req.body.owner = req.session.currentUser._id
+        req.body.owner = req.session.currentUser._id;
+        req.body.favorited = 0;
         Entries.create(req.body, (err, data) => {
             if (err) {
-                res.send('Error creating entry: ' + err)
+                res.send('Error creating entry: ' + err);
             } else {
                 res.redirect('/users/' + req.session.currentUser.username);
             }
@@ -36,6 +37,34 @@ entriesRouter.post('/', (req, res) => {
     } else {
         res.send('You must login to create an entry');
     }
+})
+
+/*---------------------------------------------------
+Route (GET) to add favorite
+---------------------------------------------------*/
+entriesRouter.get('/:entryId/favorite', (req, res) => {
+    if (req.session.currentUser) {
+        let favorite = {date: new Date(), entryId: req.params.entryId};
+        console.log('favorite is:', favorite);
+        Users.findOneAndUpdate({_id: req.session.currentUser._id}, 
+            {$push: {favorites: favorite} }, 
+            (err, result) => {
+                console.log('result is ', result);
+                if (!err && result) {
+                    //Increment the counter
+                    Entries.findByIdAndUpdate(req.params.entryId, 
+                        {$inc: {favorited: 1}}, 
+                        (err, result) => {
+                            if (err) {
+                                console.log('Error while trying to increment favorites', err);
+                            }
+                        }
+                    )
+                }
+            }
+        )
+    }
+    res.redirect('/entries/'+req.params.entryId)
 })
 
 /*---------------------------------------------------

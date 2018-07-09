@@ -36,6 +36,10 @@
         You are not logged in
     <% } %>
 
+    <% if (currentUser && !owner) { %>
+        <a href="/entries/<%=currentEntry._id%>/favorite">Add to favorites</a>
+    <% } %>
+
     <% if (owner) { %>
         <a href="/entries/<%=currentEntry._id%>/edit">Edit Entry</a>
         <form action="/entries/<%=currentEntry._id%>?_method=DELETE" method="POST">
