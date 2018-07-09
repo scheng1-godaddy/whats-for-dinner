@@ -26,7 +26,18 @@
         <% } else { %>
             You are not logged in
         <% } %>
-        <%=userEntries%>
+
+        <% if (userEntries) { %>
+            <% for(let i=0; i < userEntries.length; i++) { %>
+                <div class="entry-preview">
+                    <h3>
+                        <%=userEntries.title%>
+                    </h3>
+                    <img src="<%=userEntries.img[0]%>" alt="">
+                </div>
+            <% } %>
+        <% } %>
+
     </div>
 </body>
 </html>

@@ -6,6 +6,7 @@ const entrySchema = new mongoose.Schema({
     flavors: [String],
     public: Boolean,
     img: [String],
+    favorited: Number,
     owner: String,
     messages: [{
         date: Date,
