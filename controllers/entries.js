@@ -44,12 +44,10 @@ Route (GET) to add favorite
 ---------------------------------------------------*/
 entriesRouter.get('/:entryId/favorite', (req, res) => {
     if (req.session.currentUser) {
-        let favorite = {date: new Date(), entryId: req.params.entryId};
-        console.log('favorite is:', favorite);
+        let favorite = {date: new Date(), entryid: req.params.entryId};
         Users.findOneAndUpdate({_id: req.session.currentUser._id}, 
             {$push: {favorites: favorite} }, 
             (err, result) => {
-                console.log('result is ', result);
                 if (!err && result) {
                     //Increment the counter
                     Entries.findByIdAndUpdate(req.params.entryId, 
@@ -129,19 +127,50 @@ Route (GET) to show entry detail page
 ---------------------------------------------------*/
 entriesRouter.get('/:entryId', (req, res) => {
     let currentUser = null;
-    if (req.session.currentUser) {
-        currentUser = req.session.currentUser;
-    } 
     let owner = false;
-    Entries.findById(req.params.entryId, (err, result) => {
-        if (req.session.currentUser && (result.owner === req.session.currentUser._id)) {
-            owner = true;
+    let foundFave = false;
+    // Retrieve entry
+    Entries.findById(req.params.entryId, (err, foundEntry) => {
+        // Are they signed in?
+        if (req.session.currentUser) {
+            currentUser = req.session.currentUser;
+            // Check if they're the owner
+            if (foundEntry.owner === req.session.currentUser._id) {
+                owner = true;
+                res.render('./entries/show.ejs', {
+                    currentUser: req.session.currentUser,
+                    currentEntry: foundEntry,
+                    owner: owner,
+                    favorite: foundFave
+                });
+            // Not owner and signed in, find if its been favorited by the user
+            } else {
+                Users.findById(currentUser._id, (err, foundUser) => {
+                    // Check favorites property to see if entry is present
+                    for (let favorite of foundUser.favorites) {                        
+                        if(favorite.entryid === req.params.entryId) {
+                            console.log('They are a match');
+                            foundFave = true;
+                        }
+                    }
+                    // Check is finished, render the page
+                    res.render('./entries/show.ejs', {
+                        currentUser: req.session.currentUser,
+                        currentEntry: foundEntry,
+                        owner: owner,
+                        favorite: foundFave
+                    });
+                })
+            }
+        // Not signed in, send them off to the page
+        } else {
+            res.render('./entries/show.ejs', {
+                currentUser: currentUser,
+                currentEntry: foundEntry,
+                owner: owner,
+                favorite: foundFave
+            });
         }
-        res.render('./entries/show.ejs', {
-            currentUser: req.session.currentUser,
-            currentEntry: result,
-            owner: owner
-        });
     })
 })
 
