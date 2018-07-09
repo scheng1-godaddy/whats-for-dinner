@@ -28,13 +28,18 @@ Route to create new session
 sessionsRouter.post('/', (req, res) => {
     console.log(req.body.username);
     Users.findOne({ username: req.body.username }, (err, foundUser) => {
-        if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-            req.session.currentUser = foundUser;
-            // res.redirect('/users/'+foundUser.username);
-            res.redirect('/');
+        if (foundUser) {
+            if (bcrypt.compareSync(req.body.password, foundUser.password)) {
+                req.session.currentUser = foundUser;
+                // res.redirect('/users/'+foundUser.username);
+                res.redirect('/');
+            } else {
+                res.send('wrong password');
+            }
         } else {
-            res.send('wrong password');
+            res.send('Wrong username')
         }
+
     });
 })
 

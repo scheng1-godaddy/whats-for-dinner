@@ -39,9 +39,20 @@ entriesRouter.post('/', (req, res) => {
 })
 
 /*---------------------------------------------------
-Route (GET) to show entries for particular user
+Route (GET) to show entry detail page
 ---------------------------------------------------*/
-
+entriesRouter.get('/:entryId', (req, res) => {
+    let currentUser = null;
+    if (req.session.currentUser) {
+        currentUser = req.session.currentUser;
+    } 
+    Entries.findById(req.params.entryId, (err, result) => {
+        res.render('./entries/show.ejs', {
+            currentUser: req.session.currentUser,
+            currentEntry: result
+        });
+    })
+})
 
 // Export entries router
 module.exports = entriesRouter;

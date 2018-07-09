@@ -33,6 +33,7 @@ Route for user show page
 usersRouter.get('/:username', (req, res) => {
     Users.findOne({ username: req.params.username }, (err, result) => {
         let userEntries = [];
+        let owner = false;
         if (err) {
             res.send('Error retrieving user')
         } else {
@@ -46,25 +47,15 @@ usersRouter.get('/:username', (req, res) => {
                     if (req.session.currentUser) {
                         // Check if current user is accessing their own page
                         if (req.session.currentUser.username === req.params.username) {
-                            res.render('./users/index-admin.ejs', {
-                                currentUser: result,
-                                userEntries: userEntries
-                            })
-                        } else {
-                            // Show the public page
-                            res.render('./users/index.ejs', {
-                                currentUser: req.session.currentUser,
-                                userEntries: userEntries
-                            })
+                            // If accessing own page, set owner flag
+                            owner = true;
                         }
-                    } else {
-                        // Show the public page
-                        res.render('./users/index.ejs', {
-                            currentUser: req.session.currentUser,
-                            userEntries: userEntries
-                        })
                     }
-
+                    res.render('./users/index.ejs', {
+                        currentUser: req.session.currentUser,
+                        userEntries: userEntries,
+                        owner: owner
+                    })
                 }
             })
         }
