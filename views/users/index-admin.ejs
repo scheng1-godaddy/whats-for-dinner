@@ -30,10 +30,12 @@
         <% if (userEntries) { %>
             <% for(let i=0; i < userEntries.length; i++) { %>
                 <div class="entry-preview">
-                    <h3>
-                        <%=userEntries.title%>
-                    </h3>
-                    <img src="<%=userEntries.img[0]%>" alt="">
+                    <a href="/entries/<%=userEntries[i]._id%>">
+                        <h3>
+                            <%=userEntries[i].title%>
+                        </h3>
+                        <img src="<%=userEntries[i].img[0]%>" alt="">
+                    </a>
                 </div>
             <% } %>
         <% } %>

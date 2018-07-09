@@ -41,24 +41,30 @@ usersRouter.get('/:username', (req, res) => {
                 if (entryErr) {
                     console.log('Error finding entries for user', result.username, entryErr);
                 } else {
-                    console.log('Entry result is:', entryResult);
                     userEntries = entryResult;
+                    console.log(userEntries);
                     if (req.session.currentUser) {
                         // Check if current user is accessing their own page
                         if (req.session.currentUser.username === req.params.username) {
-                            console.log('userEntries is:', userEntries)
                             res.render('./users/index-admin.ejs', {
                                 currentUser: result,
                                 userEntries: userEntries
                             })
+                        } else {
+                            // Show the public page
+                            res.render('./users/index.ejs', {
+                                currentUser: req.session.currentUser,
+                                userEntries: userEntries
+                            })
                         }
+                    } else {
+                        // Show the public page
+                        res.render('./users/index.ejs', {
+                            currentUser: req.session.currentUser,
+                            userEntries: userEntries
+                        })
                     }
-                    // Show the public page
-                    console.log('userEntries is:', userEntries)
-                    res.render('./users/index.ejs', {
-                        currentUser: req.session.currentUser,
-                        userEntries: userEntries
-                    })
+
                 }
             })
         }
