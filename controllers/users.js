@@ -64,6 +64,32 @@ usersRouter.put('/:username', (req, res) => {
 })
 
 /*---------------------------------------------------
+Route for user delete
+---------------------------------------------------*/
+usersRouter.delete('/:username', (req, res) => {
+    // Check if the logged in user is the owner
+    if (req.session.currentUser && (req.session.currentUser.username === req.params.username)) {
+        // Remove their entries first
+        Entries.remove({owner: req.session.currentUser._id}, (err) => {
+            console.log('error removing entries for user', err);
+        })
+        // Now delete user
+        Users.findByIdAndRemove(req.session.currentUser._id, (err, result) => {
+            if (err) {
+                console.log();
+            } else {
+                console.log('Removed user: ', result);
+                // Kill the session
+                req.session.destroy(() => { })
+                res.redirect('/')
+            }
+        })
+    } else {
+        res.redirect('/')
+    }
+})
+
+/*---------------------------------------------------
 Route for user show page
 ---------------------------------------------------*/
 usersRouter.get('/:username', (req, res) => {

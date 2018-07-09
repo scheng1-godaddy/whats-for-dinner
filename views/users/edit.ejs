@@ -21,6 +21,9 @@
         <input id="username" type="text" name="username" value="<%=currentUser.username%>">
         <input type="submit">
     </form>
+    <form action="/users/<%=currentUser.username%>?_method=DELETE" method="POST">
+        <input type="submit" value="Remove Account" onclick="return confirm('Are you sure?')">
+    </form>
     <% } else { %>
         Couldn't find user
     <% } %>
