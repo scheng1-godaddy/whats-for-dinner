@@ -18,7 +18,7 @@
 
 
     <h1>Edit Entry</h1>
-    <form action="/entries/" method="POST">
+    <form action="/entries/<%=currentEntry.id%>?_method=PUT" method="POST">
         <label for="title">Title</label>
         <input id="title" type="text" name="title" value="<%=currentEntry.title%>">
         <br />

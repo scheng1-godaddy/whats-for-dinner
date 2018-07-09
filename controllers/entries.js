@@ -55,6 +55,24 @@ entriesRouter.get('/:entryId/edit', (req, res) => {
 })
 
 /*---------------------------------------------------
+Route for user update
+---------------------------------------------------*/
+entriesRouter.put('/:entryId', (req, res) => {
+    // Check if the logged in user is the owner
+    Entries.findById(req.params.entryId, (err, result) => {
+        if (!err && result) {
+            if(req.session.currentUser._id === result.owner) {
+                Entries.findByIdAndUpdate(req.params.entryId, req.body, { new: true }, (err, res) => {
+                    console.log('Updated entry', res);
+                })
+            }
+        }
+    })
+    res.redirect('/entries/'+req.params.entryId);
+    
+})
+
+/*---------------------------------------------------
 Route (GET) to show entry detail page
 ---------------------------------------------------*/
 entriesRouter.get('/:entryId', (req, res) => {
