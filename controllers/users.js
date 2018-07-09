@@ -31,7 +31,7 @@ Route for user edit page
 ---------------------------------------------------*/
 usersRouter.get('/:username/edit', (req, res) => {
     // Check if the logged in user is the owner
-    if (req.session.currentUser.username === req.params.username) {
+    if (req.session.currentUser && (req.session.currentUser.username === req.params.username)) {
         Users.findOne({ username: req.params.username }, (err, result) => {
             if (err) {
                 res.send('Error retrieving user')
@@ -46,6 +46,22 @@ usersRouter.get('/:username/edit', (req, res) => {
     }
 })
 
+/*---------------------------------------------------
+Route for user update
+---------------------------------------------------*/
+usersRouter.put('/:username', (req, res) => {
+    // Check if the logged in user is the owner
+    if (req.session.currentUser.username === req.params.username) {
+        Users.findByIdAndUpdate(req.session.currentUser._id, req.body, {new: true}, (err, result) => {
+            console.log('Updated user: ', result);
+            // Update the session
+            req.session.currentUser = result;
+            res.redirect('/users/'+result.username);
+        })
+    } else {
+        res.redirect('/');
+    }
+})
 
 /*---------------------------------------------------
 Route for user show page
@@ -63,7 +79,6 @@ usersRouter.get('/:username', (req, res) => {
                     console.log('Error finding entries for user', result.username, entryErr);
                 } else {
                     userEntries = entryResult;
-                    console.log(userEntries);
                     if (req.session.currentUser) {
                         // Check if current user is accessing their own page
                         if (req.session.currentUser.username === req.params.username) {

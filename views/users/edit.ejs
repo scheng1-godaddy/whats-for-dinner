@@ -10,7 +10,7 @@
 <body>
     <h1>Edit User</h1>
     <% if (currentUser) { %>
-    <form action="/users/<%=currentUser.username%>/edit?_method=PUT" method="POST">
+    <form action="/users/<%=currentUser.username%>?_method=PUT" method="POST">
         <label for="fname">First Name</label>
         <input id="fname" type="text" name="fname" value="<%=currentUser.fname%>">
         <label for="lname">Last Name</label>
@@ -19,8 +19,6 @@
         <input id="email" type="email" name="email" value="<%=currentUser.email%>">
         <label for="username">Username</label>
         <input id="username" type="text" name="username" value="<%=currentUser.username%>">
-        <label for="password">Password</label>
-        <input id="password" type="password" name="password" value="<%=currentUser.password%>">
         <input type="submit">
     </form>
     <% } else { %>
