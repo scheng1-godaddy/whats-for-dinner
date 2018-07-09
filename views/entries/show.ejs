@@ -27,10 +27,30 @@
         </ul>
     </div>
     <div>
+
         <% if (currentUser) { %>
             You are logged in as <%=currentUser.username %>
         <% } else { %>
             You are not logged in
+        <% } %>
+
+        <% if (currentEntry) { %>
+            <ul>
+                <li>
+                    <%=currentEntry.description%>
+                </li>
+                <li>
+                    <%=currentEntry.category%>
+                </li>
+                <li>
+                    <%=currentEntry.flavors%>
+                </li>
+                <li>
+                    <%=currentEntry.img%>
+                </li>
+            </ul>
+        <% } else { %>
+            Couldn't find entry
         <% } %>
 
     </div>

@@ -21,11 +21,31 @@ Create route for new user
 usersRouter.post('/', (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
     Users.create(req.body, (err, data) => {
-        // res.redirect('/users/'+req.body.username)
         req.session.currentUser = req.body;
         res.redirect('/');
     })
 })
+
+/*---------------------------------------------------
+Route for user edit page
+---------------------------------------------------*/
+usersRouter.get('/:username/edit', (req, res) => {
+    // Check if the logged in user is the owner
+    if (req.session.currentUser.username === req.params.username) {
+        Users.findOne({ username: req.params.username }, (err, result) => {
+            if (err) {
+                res.send('Error retrieving user')
+            } else {
+                res.render('./users/edit.ejs', {
+                    currentUser: result
+                })
+            }
+        })
+    } else {
+        res.redirect('/');
+    }
+})
+
 
 /*---------------------------------------------------
 Route for user show page
