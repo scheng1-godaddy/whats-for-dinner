@@ -38,5 +38,10 @@ entriesRouter.post('/', (req, res) => {
     }
 })
 
+/*---------------------------------------------------
+Route (GET) to show entries for particular user
+---------------------------------------------------*/
+
+
 // Export entries router
 module.exports = entriesRouter;

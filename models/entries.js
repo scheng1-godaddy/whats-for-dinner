@@ -6,7 +6,12 @@ const entrySchema = new mongoose.Schema({
     flavors: [String],
     public: Boolean,
     img: [String],
-    owner: String
+    owner: String,
+    messages: [{
+        date: Date,
+        message: String,
+        author: String
+    }]
 }, {timestamps: true})
 
 module.exports = mongoose.model('Entry', entrySchema);
