@@ -46,6 +46,47 @@ app.get('/', (req, res) => {
 })
 
 /*---------------------------------------------------
+Seed routes
+---------------------------------------------------*/
+const User = require('./models/users.js');
+const Entry = require('./models/entries.js');
+const userSeed = require('./models/userseed.js');
+const entrySeed = require('./models/entryseed.js')
+
+// Seed for Users
+app.get('/seedusers', (req, res) => {
+  // encrypt all the passwords
+  userSeed.forEach((user) => {
+    user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10));
+  })
+  // Enter into database
+  User.create(userSeed, (err, createdUsers) => {
+    console.log(createdUsers);
+    res.redirect('/');
+  })
+})
+
+// Seed for Entries
+app.get('/seedentries', (req, res) => {
+  // Get the userID for owner property
+  entrySeed.forEach((entry) => {
+    User.find({username: entry.owner}, (err, result) => {
+      if (result) {
+        console.log('user ID for ' + entry.owner + ' is', result[0]._id);
+        entry.owner = result[0]._id;
+        // Enter into database
+        Entry.create(entry, (err, createdEntry) => {
+        console.log(createdEntry);
+        })
+      }
+    })
+  })
+  setTimeout(() => {
+    res.redirect('/')
+  }, 2000)
+})
+
+/*---------------------------------------------------
 Listener
 ---------------------------------------------------*/
 app.listen(port, () => {

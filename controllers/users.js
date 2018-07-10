@@ -100,25 +100,27 @@ usersRouter.get('/:username', (req, res) => {
             res.send('Error retrieving user')
         } else {
             // Grab the entries for this user
-            Entries.find({ owner: result._id}, (entryErr, entryResult) => {
-                if (entryErr) {
-                    console.log('Error finding entries for user', result.username, entryErr);
-                } else {
-                    userEntries = entryResult;
-                    if (req.session.currentUser) {
-                        // Check if current user is accessing their own page
-                        if (req.session.currentUser.username === req.params.username) {
-                            // If accessing own page, set owner flag
-                            owner = true;
+            if (result) {
+                Entries.find({ owner: result._id}, (entryErr, entryResult) => {
+                    if (entryErr) {
+                        console.log('Error finding entries for user', result.username, entryErr);
+                    } else {
+                        userEntries = entryResult;
+                        if (req.session.currentUser) {
+                            // Check if current user is accessing their own page
+                            if (req.session.currentUser.username === req.params.username) {
+                                // If accessing own page, set owner flag
+                                owner = true;
+                            }
                         }
+                        res.render('./users/index.ejs', {
+                            currentUser: req.session.currentUser,
+                            userEntries: userEntries,
+                            owner: owner
+                        })
                     }
-                    res.render('./users/index.ejs', {
-                        currentUser: req.session.currentUser,
-                        userEntries: userEntries,
-                        owner: owner
-                    })
-                }
-            })
+                })
+            }
         }
     })
 });
