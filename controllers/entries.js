@@ -70,11 +70,20 @@ entriesRouter.get('/:entryId/favorite', (req, res) => {
 /*---------------------------------------------------
 Route (POST) to add comment
 ---------------------------------------------------*/
-entriesRouter.post('/:entryId/comment', (req, res) => {
+entriesRouter.post('/:entryId/message', (req, res) => {
     if (req.session.currentUser) {
+        // format the comment object
         req.body.date = new Date();
         req.body.author = {id: req.session.currentUser._id, username: req.session.currentUser.username}
-        res.send(req.body)
+        // Push it onto the entries comment property
+        Entries.findByIdAndUpdate(req.params.entryId, {$push: {messages: req.body}}, (err, result) => {
+            if (err) {
+                console.log('Error trying to update comment');
+                
+            } else {
+                res.redirect('/entries/' + req.params.entryId)
+            }
+        })
     }
 })
 
