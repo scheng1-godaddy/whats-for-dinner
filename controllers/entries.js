@@ -61,11 +61,41 @@ entriesRouter.get('/:entryId/favorite', (req, res) => {
                         }
                     )
                 }
+                res.redirect('/entries/' + req.params.entryId)
             }
         )
     }
-    res.redirect('/entries/'+req.params.entryId)
 })
+
+/*---------------------------------------------------
+Route (DELETE) to remove favorite
+---------------------------------------------------*/
+entriesRouter.delete('/:entryId/favorite', (req, res) => {
+    if (req.session.currentUser) {
+        Users.findOneAndUpdate({ _id: req.session.currentUser._id },
+            { $pull: { favorites: { entryid: req.params.entryId} } },
+            (err, result) => {
+                if (!err && result) {
+                    // Remove from current session
+                    req.session.currentUser.favorites = req.session.currentUser.favorites.filter((fav) => {
+                        fav.entryid !== req.params.entryId;
+                    })
+                    //decrement the counter
+                    Entries.findByIdAndUpdate(req.params.entryId,
+                        { $inc: { favorited: -1 } },
+                        (err, result) => {
+                            if (err) {
+                                console.log('Error while trying to increment favorites', err);
+                            }
+                        }
+                    )
+                    res.redirect('/entries/' + req.params.entryId)
+                }
+            }
+        )
+    }
+})
+
 
 /*---------------------------------------------------
 Route (GET) to edit entry page

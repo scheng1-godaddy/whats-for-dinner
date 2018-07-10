@@ -38,9 +38,11 @@
 
     <% if (currentUser && !owner) { %>
         <% if (!favorite) { %>
-            <a href="/entries/<%=currentEntry._id%>/favorite">Add to favorites</a>
+            <a href="/entries/<%=currentEntry._id%>/favorite">Add Favorite</a>
         <% } else { %>
-            <a href="/entries/<%=currentEntry._id%>/favorite">Remove from favorites</a>
+            <form action="/entries/<%=currentEntry._id%>/favorite?_method=DELETE" method="POST">
+                <input type="submit" value="Remove Favorite">
+            </form>
         <% } %>
     <% } %>
 
