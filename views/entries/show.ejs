@@ -68,6 +68,14 @@
                 <%=currentEntry.img%>
             </li>
         </ul>
+        <% for(let i=0; i < currentEntry.messages.length; i++) { %>
+            <div>
+                <p><%=currentEntry.messages[i].message%></p>
+                Posted by: <%=currentEntry.messages[i].author.username%><br>
+                On: <%=currentEntry.messages[i].date%>
+            </div>
+        <% } %>
+
         <% if (currentUser) { %>
             <form action="/entries/<%=currentEntry._id%>/message" method="POST">
                 <textarea name="message" id="message" cols="30" rows="10"></textarea>
