@@ -68,6 +68,17 @@ entriesRouter.get('/:entryId/favorite', (req, res) => {
 })
 
 /*---------------------------------------------------
+Route (POST) to add comment
+---------------------------------------------------*/
+entriesRouter.post('/:entryId/comment', (req, res) => {
+    if (req.session.currentUser) {
+        req.body.date = new Date();
+        req.body.author = {id: req.session.currentUser._id, username: req.session.currentUser.username}
+        res.send(req.body)
+    }
+})
+
+/*---------------------------------------------------
 Route (DELETE) to remove favorite
 ---------------------------------------------------*/
 entriesRouter.delete('/:entryId/favorite', (req, res) => {
@@ -177,23 +188,6 @@ entriesRouter.get('/:entryId', (req, res) => {
                 });
             // Not owner and signed in, find if its been favorited by the user
             } else {
-                // Users.findById(currentUser._id, (err, foundUser) => {
-                //     // Check favorites property to see if entry is present
-                //     for (let favorite of foundUser.favorites) {                        
-                //         if(favorite.entryid === req.params.entryId) {
-                //             console.log('They are a match');
-                //             foundFave = true;
-                //         }
-                //     }
-                //     // Check is finished, render the page
-                //     res.render('./entries/show.ejs', {
-                //         currentUser: req.session.currentUser,
-                //         currentEntry: foundEntry,
-                //         owner: owner,
-                //         favorite: foundFave
-                //     });
-                // })
-
                 //Check favorites property to see if entry is present
                 for (let favorite of req.session.currentUser.favorites) {                        
                     if(favorite.entryid === req.params.entryId) {

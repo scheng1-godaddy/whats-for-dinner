@@ -11,7 +11,7 @@ const entrySchema = new mongoose.Schema({
     messages: [{
         date: Date,
         message: String,
-        author: String
+        author: {id: String, name: String}
     }]
 }, {timestamps: true})
 

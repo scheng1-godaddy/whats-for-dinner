@@ -68,6 +68,12 @@
                 <%=currentEntry.img%>
             </li>
         </ul>
+        <% if (currentUser) { %>
+            <form action="/entries/<%=currentEntry._id%>/comment" method="POST">
+                <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                <input type="submit" value="Post Comment">
+            </form>
+        <% } %>
     <% } else { %>
         Couldn't find entry
     <% } %>
