@@ -4,50 +4,51 @@
     <% include ../partials/head %>
 </head>
 <body>
-    <% if (owner) { %>
-        <h1>User Dashbboard Admin</h1>
-    <% } else { %>
-        <h1>User Dashbboard Public</h1>
-    <% } %>
-    <div class="header-nav">
-        <ul>
-            <% if (currentUser) { %>
-                <form action="/sessions?_method=DELETE" method="POST">
-                    <input type="submit" value="Logout">
-                </form>
-            <% } else { %>
-                <li>
-                    <a href="/sessions/new">Login</a>
-                </li>
-            <% } %>
-        </ul>
-    </div>
-    <div>
-        <% if (currentUser) { %>
-            You are logged in as <%=currentUser.username %><br />
-        <% } else { %>
-            You are not logged in
-        <% } %>
+    <div class="container-fluid">
+        <% include ../partials/nav %>
         
         <% if (owner) { %>
-            <a href="/users/<%=currentUser.username%>/edit">Edit Profile</a>
-            <a href="/entries/new">Create an entry</a>
+            <h1>User Dashbboard Admin</h1>
+        <% } else { %>
+            <h1>User Dashbboard Public</h1>
         <% } %>
-        
-
-        <% if (userEntries) { %>
-            <% for(let i=0; i < userEntries.length; i++) { %>
-                <div class="entry-preview">
-                    <a href="/entries/<%=userEntries[i]._id%>">
-                        <h3>
-                            <%=userEntries[i].title%>
-                        </h3>
-                        <img src="<%=userEntries[i].img[0]%>" alt="">
-                    </a>
-                </div>
+        <div class="header-nav">
+            <ul>
+                <% if (currentUser) { %>
+                    <form action="/sessions?_method=DELETE" method="POST">
+                        <input type="submit" value="Logout">
+                    </form>
+                <% } else { %>
+                    <a href="/sessions/new">Login</a>
+                <% } %>
+            </ul>
+        </div>
+        <div>
+            <% if (currentUser) { %>
+                You are logged in as <%=currentUser.username %><br />
+            <% } else { %>
+                You are not logged in
             <% } %>
-        <% } %>
+            
+            <% if (owner) { %>
+                <a href="/users/<%=currentUser.username%>/edit">Edit Profile</a>
+                <a href="/entries/new">Create an entry</a>
+            <% } %>
+            
 
+            <% if (userEntries) { %>
+                <% for(let i=0; i < userEntries.length; i++) { %>
+                    <div class="entry-preview">
+                        <a href="/entries/<%=userEntries[i]._id%>">
+                            <h3>
+                                <%=userEntries[i].title%>
+                            </h3>
+                            <img src="<%=userEntries[i].img[0]%>" alt="">
+                        </a>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
     </div>
     <% include ../partials/script %>
 </body>
