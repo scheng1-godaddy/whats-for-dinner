@@ -37,7 +37,11 @@
     <% } %>
 
     <% if (currentUser && !owner) { %>
-        <a href="/entries/<%=currentEntry._id%>/favorite">Add to favorites</a>
+        <% if (!favorite) { %>
+            <a href="/entries/<%=currentEntry._id%>/favorite">Add to favorites</a>
+        <% } else { %>
+            <a href="/entries/<%=currentEntry._id%>/favorite">Remove from favorites</a>
+        <% } %>
     <% } %>
 
     <% if (owner) { %>
