@@ -6,7 +6,10 @@
 <body>
     <div class="container-fluid">
         <% include ../partials/nav %>
-        
+        <div class="user-header">
+            <img src="<%=user.img%>" alt="">
+            <h3><%=user.username%></h3>
+        </div>
         <% if (owner) { %>
             <h1>User Dashbboard Admin</h1>
         <% } else { %>

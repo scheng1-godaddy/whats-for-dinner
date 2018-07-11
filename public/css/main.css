@@ -1,0 +1,43 @@
+body, html {
+    padding: 0;
+    margin: 0;
+}
+
+.container-fluid {
+    margin-top: 70px;
+    padding: 0;
+}
+
+.user-header {
+    width: 100%;
+    height: 300px;
+    background: url("https://i.imgur.com/fiqQ6Tj.jpg");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.user-header > img {
+    margin-top: 10px;
+    max-height: 200px;
+    min-height: 200px;
+    border-radius: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    box-sizing: content-box;
+}
+
+.user-header > h3 {
+    color: white;
+    display: block;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 768px) {
+    .user-header {
+        height: 200px;
+    }
+}

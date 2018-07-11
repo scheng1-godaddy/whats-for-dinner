@@ -6,17 +6,20 @@
 </head>
 
 <body>
-    <h1>Login User</h1>
+    <div class="container-fluid">
+        <% include ../partials/nav %>
+        <h1>Login User</h1>
 
-    <form action="/sessions/" method="POST">
-        <label for="username">Username</label>
-        <input id="username" type="text" name="username">
-        <label for="password">Password</label>
-        <input id="password" type="password" name="password">
-        <input type="submit">
-    </form>
+        <form action="/sessions/" method="POST">
+            <label for="username">Username</label>
+            <input id="username" type="text" name="username">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password">
+            <input type="submit">
+        </form>
 
-    <br/ ><a href="/users/new">Register New Account</a>
+        <br/ ><a href="/users/new">Register New Account</a>
+    </div>
     <% include ../partials/script %>
 </body>
 

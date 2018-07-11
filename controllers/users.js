@@ -115,11 +115,14 @@ usersRouter.get('/:username', (req, res) => {
                         }
                         res.render('./users/index.ejs', {
                             currentUser: req.session.currentUser,
+                            user: result,
                             userEntries: userEntries,
                             owner: owner
                         })
                     }
                 })
+            } else {
+                res.send('Could not find user')
             }
         }
     })

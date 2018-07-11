@@ -4,20 +4,23 @@
     <% include ../partials/head %>
 </head>
 <body>
-    <h1>Create New User</h1>
-    <form action="/users/" method="POST">
-    <label for="fname">First Name</label>
-    <input id="fname" type="text" name="fname">
-    <label for="lname">Last Name</label>
-    <input id="lname" type="text" name="lname">
-    <label for="email">Email</label>
-    <input id="email" type="email" name="email">
-    <label for="username">Username</label>
-    <input id="username" type="text" name="username">
-    <label for="password">Password</label>
-    <input id="password" type="password" name="password">
-    <input type="submit">
-    </form>
-    <% include ../partials/script %>
+    <div class="container-fluid">
+        <% include ../partials/nav %>
+        <h1>Create New User</h1>
+        <form action="/users/" method="POST">
+        <label for="fname">First Name</label>
+        <input id="fname" type="text" name="fname">
+        <label for="lname">Last Name</label>
+        <input id="lname" type="text" name="lname">
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username">
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password">
+        <input type="submit">
+        </form>
+        <% include ../partials/script %>
+    </div>
 </body>
 </html>
