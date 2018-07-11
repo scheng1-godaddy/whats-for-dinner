@@ -6,7 +6,7 @@ module.exports = [
         fname: "Madison",
         lname: "Cheng",
         public: true,
-        img: "https://i.imgur.com/BbIG9ZU.jpg",
+        img: "https://i.imgur.com/BbIG9ZU.jpg?1",
         favorites: []
     },
     {
@@ -16,7 +16,7 @@ module.exports = [
         fname: "Lebron",
         lname: "James",
         public: true,
-        img: "http://a.espncdn.com/photo/2018/0701/nba_lebron_james1x_1296x518.png",
+        img: "https://i.imgur.com/qAbeHCF.png",
         favorites: []
     },
     {
@@ -26,7 +26,7 @@ module.exports = [
         fname: "Kobe",
         lname: "Bryant",
         public: true,
-        img: "https://www.si.com/longform/kobe/img/gal1.jpg",
+        img: "https://i.imgur.com/6VDLONr.jpg",
         favorites: []
     },
     {
