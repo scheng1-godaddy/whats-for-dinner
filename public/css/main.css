@@ -66,7 +66,7 @@ User page
 
 /* 
 -------------------------------
-Entries
+Entries Preview
 ------------------------------- 
 */
 .entries-container {
@@ -101,6 +101,44 @@ Entries
     border: 1px solid rgb(237, 237, 237);
 }
 
+/* 
+-------------------------------
+Entries Show
+------------------------------- 
+*/
+.entry-show-container {
+    width: 100%;
+    height: 500px;
+    padding: 0 5%;
+    background: grey;
+    display: flex;
+}
+
+.entry-img-container {
+    width: 50%;
+    height: 95%;
+    margin: 10px;
+    box-sizing: border-box;
+    /* background: rgb(88, 127, 139);
+    border: 1px solid grey; */
+}
+
+.entry-content-container {
+    width: 50%;
+    height: 500px;
+    /* background: rgb(92, 112, 92);
+    border: 1px solid grey; */
+}
+
+.carousel {
+    height: 500px;
+    min-width: 500px;
+}
+
+.entry-img {
+    height: 500px;
+    min-width: 500px;
+}
 
 /* 
 -------------------------------
