@@ -8,6 +8,11 @@ body, html {
     padding: 0;
 }
 
+/* 
+-------------------------------
+User page
+------------------------------- 
+*/
 .user-header {
     width: 100%;
     height: 300px;
@@ -36,8 +41,72 @@ body, html {
     background: rgba(0, 0, 0, 0.3);
 }
 
+.user-admin-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-admin-nav ul {
+    margin: 5px 0;
+    padding: 0;
+}
+
+.user-admin-nav li {
+    display: inline-block;
+    margin: 0;
+}
+
+.user-admin-nav .btn-sm {
+    font-size: .7em;
+}
+
+
+/* 
+-------------------------------
+Entries
+------------------------------- 
+*/
+.entries-container {
+    width: 100%;
+    padding: 2% 10%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.entry-preview img {
+    height: 250px;
+    clip-path: rect(0px,250px,250px,0px);
+    border: 1px solid lightgrey;
+}
+
+.entry-preview {
+    font-size: 1em;
+    width: 250px;
+    margin: 20px;
+    overflow: hidden;
+}
+
+
+
+/* 
+-------------------------------
+Media Queries
+------------------------------- 
+*/
 @media screen and (max-width: 768px) {
     .user-header {
         height: 200px;
+    }
+    .user-header > img {
+        max-height: 120px;
+        min-height: 120px;
+    }
+    .user-header > h3 {
+        font-size: 1em;
+    }
+    .user-entries-container {
+        padding: 1%, 2%;
     }
 }
