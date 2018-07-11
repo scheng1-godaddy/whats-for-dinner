@@ -137,10 +137,11 @@ entriesRouter.get('/:entryId/edit', (req, res) => {
 Route for entry update
 ---------------------------------------------------*/
 entriesRouter.put('/:entryId', (req, res) => {
+    req.body.img = req.body.img.filter(Boolean);
     // Retrieve entry so that we can get the owner id
     Entries.findById(req.params.entryId, (err, result) => {
         if (!err && result) {
-            if(req.session.currentUser._id === result.owner) {
+            if(req.session.currentUser && (req.session.currentUser._id === result.owner)) {
                 Entries.findByIdAndUpdate(req.params.entryId, req.body, { new: true }, (err, res) => {
                     console.log('Updated entry', res);
                 })
