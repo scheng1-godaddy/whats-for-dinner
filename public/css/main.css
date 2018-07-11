@@ -29,16 +29,18 @@ User page
     max-height: 200px;
     min-height: 200px;
     border-radius: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    padding: 10px;
+    background: #E6F5FF;
+    /* background: rgba(255, 255, 255, 0.5); */
+    padding: 5px;
     box-sizing: content-box;
 }
 
 .user-header > h3 {
     color: white;
     display: block;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.3);
+    padding: 8px 15px;
+    border-radius: 10%;
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .user-admin-nav {
@@ -57,8 +59,8 @@ User page
     margin: 0;
 }
 
-.user-admin-nav .btn-sm {
-    font-size: .7em;
+.btn-sm {
+    font-size: .6em;
 }
 
 
@@ -81,13 +83,23 @@ Entries
     border: 1px solid lightgrey;
 }
 
-.entry-preview {
-    font-size: 1em;
-    width: 250px;
-    margin: 20px;
-    overflow: hidden;
+.entry-preview a:hover {
+    text-decoration: none;
 }
 
+.entry-preview {
+    font-size: .8em;
+    width: 260px;
+    margin: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-align: center;
+}
+
+.entry-preview-info {
+    padding: 10px 0;
+    border: 1px solid rgb(237, 237, 237);
+}
 
 
 /* 

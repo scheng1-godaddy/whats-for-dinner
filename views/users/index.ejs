@@ -20,10 +20,10 @@
             <div class="user-admin-nav">
                 <ul>
                     <li>
-                        <a class="btn btn-outline-secondary btn-sm" href="/users/<%=currentUser.username%>/edit">Edit Profile</a>
+                        <a class="btn btn-primary btn-sm" href="/users/<%=currentUser.username%>/edit">Edit Profile</a>
                     </li>
                     <li>
-                        <a class="btn btn-outline-secondary btn-sm" href="/entries/new">Create an entry</a>
+                        <a class="btn btn-primary btn-sm" href="/entries/new">Create an entry</a>
                     </li>
                 </ul>
             </div>
@@ -36,7 +36,7 @@
                     <div class="entry-preview">
                         <a href="/entries/<%=userEntries[i]._id%>">
                             <img src="<%=userEntries[i].img[0]%>" alt="">
-                            <div class="enter-preview-info"> 
+                            <div class="entry-preview-info"> 
                                 <%=userEntries[i].title%>
                             </div>
                         </a>
