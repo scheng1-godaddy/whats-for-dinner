@@ -239,6 +239,27 @@ Home Page
 
 /* 
 -------------------------------
+Forms
+------------------------------- 
+*/
+.form-content {
+    min-height: 700px;
+    width: 75%;
+    margin: auto;
+}
+
+.form-content {
+    background: white;
+    border: 1px solid grey;
+}
+
+.form-entries-container{
+    width: 100%;
+    padding: 2% 5%;
+}
+
+/* 
+-------------------------------
 Media Queries
 ------------------------------- 
 */
@@ -267,4 +288,10 @@ Media Queries
     .home-content {
         width: 95%;
     }
+    .display-4 {
+        font-size: 2em;
+    }
+    .form-content {
+        width: 95%;
+}
 }

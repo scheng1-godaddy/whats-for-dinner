@@ -27,7 +27,10 @@ usersRouter.get('/', (req, res) => {
 Route for new user form
 ---------------------------------------------------*/
 usersRouter.get('/new/', (req, res) => {
-    res.render('./users/new.ejs')
+
+    res.render('./users/new.ejs', {
+        currentUser: req.session.currentUser
+    })
 });
 
 /*---------------------------------------------------
@@ -35,9 +38,15 @@ Create route for new user
 ---------------------------------------------------*/
 usersRouter.post('/', (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+    if (!req.body.img) {
+        req.body.img = "http://via.placeholder.com/500x500";
+    }
     Users.create(req.body, (err, data) => {
-        req.session.currentUser = req.body;
-        res.redirect('/');
+        if(!err && data) {
+            req.session.currentUser = data;
+            res.redirect('/');
+        }
+        
     })
 })
 
