@@ -8,31 +8,19 @@
 <body>
     <div class="container-fluid">
         <% include ./partials/nav %>
-        <h1>Home Page</h1>
-        <div class="header-nav">
-            <ul>
-                <% if (currentUser) { %>
-                    <li>
-                        <a href="/users/<%= currentUser.username%>">My Dashboard</a>
-                    </li>
-                    <li>
-                        <form action="/sessions?_method=DELETE" method="POST">
-                            <input type="submit" value="Logout">
-                        </form>
-                    </li>
-                <% } else { %>
-                    <li>
-                        <a href="./sessions/new">Login</a>
-                    </li>
-                <% } %>
-            </ul>
-        </div>
-        <div>
-            <% if (currentUser) { %>
-                You are logged in as <%=currentUser.username %>
-            <% } else { %>
-                You are not logged in
-            <% } %>
+        <div class="home-background">
+            <div class="home-content">
+                <div class="home-header">
+                    <h5>Welcome to<h5>
+                    <h1>What's For Dinner!</h1>
+                    <p>share, discover, connect</p>
+                </div>
+                <div class="featured-content">
+                    <div class= "entries-container">
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <% include ./partials/script %>

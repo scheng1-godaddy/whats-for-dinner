@@ -9,8 +9,9 @@
     <div class="container-fluid">
         <!-- Include Navigation -->
         <% include ../partials/nav %>
-
+        <!-- Wrapper for the page -->
         <div class="entry-show-container">
+            <!-- Left column for the image and controls -->
             <div class="entry-img-container">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -44,69 +45,74 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
+                <!-- The following container goes below the image -->
+                <div class="entry-favorite-container">
+                    <!-- This div holds the favorite counter -->
+                    <div class="entry-favorite">
+                        Favorited: <%=currentEntry.favorited%>
+                    </div>
+                    <!-- Controls for the page -->
+                    <div class="entry-controls">
+                        <!-- If logged in and not the owner then show the favorites button -->
+                        <% if (currentUser && !owner) { %>
+                            <!-- If not already the favorite show add favorite, other wise, show remove favorite -->
+                            <% if (!favorite) { %>
+                                <a class="btn btn-primary btn-sm" href="/entries/<%=currentEntry._id%>/favorite">Add Favorite</a>
+                            <% } else { %>
+                                <form action="/entries/<%=currentEntry._id%>/favorite?_method=DELETE" method="POST">
+                                    <input class="btn btn-primary btn-sm" type="submit" value="Remove Favorite">
+                                </form>
+                            <% } %>
+                        <% } %>
+                        <!-- If owner, show the edit and delete controls -->
+                        <% if (owner) { %>
+                            <form action="/entries/<%=currentEntry._id%>/edit" method="GET"> 
+                                <input class="btn btn-primary btn-sm" type="submit" value="Edit">
+                            </form>
+                            <form action="/entries/<%=currentEntry._id%>?_method=DELETE" method="POST">
+                                <input class="btn btn-primary btn-sm" type="submit" value="Remove" onclick="return confirm('Are you sure?')">
+                            </form>
+                        <% } %>
+                    </div>
+                </div>
             </div>
             <div class="entry-content-container">
                 <% if (currentEntry) { %>
+                    <!-- Display title and description of the entry -->
                     <h1 class="display-4">
                         <%=currentEntry.title%>
                     </h1>
                     <p class="lead"><%=currentEntry.description%></p>
+
+                    <!-- Display messages for the entry -->
+                    
+                    <div class="container comments-container">
+                        <h5>Comments</h5>
+                        <% for(let i=0; i < currentEntry.messages.length; i++) { %>
+                            <div class="comments">
+                                <p>
+                                    <%=currentEntry.messages[i].message%>
+                                </p>
+                                <div class="comments-footer">
+                                    <a href="/users/<%=currentEntry.messages[i].author.username%>"><%=currentEntry.messages[i].author.username%></a>
+                                    <%=moment(currentEntry.messages[i].date).format("YYYY-MM-DD HH:mm:ss")%>
+                                </div>                                    
+                            </div>
+                        <% } %>
+                    
+
+                    <!-- Let only logged in users post message -->
+                    <% if (currentUser) { %>
+                        
+                        <form class="comment-form form-group" action="/entries/<%=currentEntry._id%>/message" method="POST">
+                            <label for="message">Post a comment</label>
+                            <textarea class="form-control form-control-sm" name="message" id="message" cols="30" rows="3"></textarea>
+                            <input class="btn btn-primary btn-sm" type="submit" value="Post Comment">
+                        </form>
+                    <% } %>
+                    </div>
                 <% } %>
             </div>
-        </div>
-
-        <div>
-
-        <% if (currentUser && !owner) { %>
-            <% if (!favorite) { %>
-                <a href="/entries/<%=currentEntry._id%>/favorite">Add Favorite</a>
-            <% } else { %>
-                <form action="/entries/<%=currentEntry._id%>/favorite?_method=DELETE" method="POST">
-                    <input type="submit" value="Remove Favorite">
-                </form>
-            <% } %>
-        <% } %>
-
-        <% if (owner) { %>
-            <a href="/entries/<%=currentEntry._id%>/edit">Edit Entry</a>
-            <form action="/entries/<%=currentEntry._id%>?_method=DELETE" method="POST">
-                <input type="submit" value="Remove Entry" onclick="return confirm('Are you sure?')">
-            </form>
-        <% } %>
-
-        <% if (currentEntry) { %>
-            <ul>
-                <li>
-                    <%=currentEntry.description%>
-                </li>
-                <li>
-                    <%=currentEntry.category%>
-                </li>
-                <li>
-                    <%=currentEntry.flavors%>
-                </li>
-                <li>
-                    <%=currentEntry.img%>
-                </li>
-            </ul>
-            <% for(let i=0; i < currentEntry.messages.length; i++) { %>
-                <div>
-                    <p><%=currentEntry.messages[i].message%></p>
-                    Posted by: <%=currentEntry.messages[i].author.username%><br>
-                    On: <%=currentEntry.messages[i].date%>
-                </div>
-            <% } %>
-
-            <% if (currentUser) { %>
-                <form action="/entries/<%=currentEntry._id%>/message" method="POST">
-                    <textarea name="message" id="message" cols="30" rows="10"></textarea>
-                    <input type="submit" value="Post Comment">
-                </form>
-            <% } %>
-        <% } else { %>
-            Couldn't find entry
-        <% } %>
-
         </div>
     </div>
     <% include ../partials/script %>

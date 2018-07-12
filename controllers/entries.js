@@ -5,6 +5,7 @@ const express = require('express');
 const entriesRouter = express.Router();
 const Users = require('../models/users.js');
 const Entries = require('../models/entries.js');
+const moment = require('moment');
 
 /*---------------------------------------------------
 Route (GET) for new entry form
@@ -194,7 +195,8 @@ entriesRouter.get('/:entryId', (req, res) => {
                     currentUser: req.session.currentUser,
                     currentEntry: foundEntry,
                     owner: owner,
-                    favorite: foundFave
+                    favorite: foundFave,
+                    moment: moment
                 });
             // Not owner and signed in, find if its been favorited by the user
             } else {
@@ -210,7 +212,8 @@ entriesRouter.get('/:entryId', (req, res) => {
                     currentUser: req.session.currentUser,
                     currentEntry: foundEntry,
                     owner: owner,
-                    favorite: foundFave
+                    favorite: foundFave,
+                    moment: moment
                 });
             }
         // Not signed in, send them off to the page
@@ -219,7 +222,8 @@ entriesRouter.get('/:entryId', (req, res) => {
                 currentUser: currentUser,
                 currentEntry: foundEntry,
                 owner: owner,
-                favorite: foundFave
+                favorite: foundFave,
+                moment: moment
             });
         }
     })

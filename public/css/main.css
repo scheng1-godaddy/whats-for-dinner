@@ -108,7 +108,6 @@ Entries Show
 */
 .entry-show-container {
     width: 100%;
-    height: 450px;
     padding: 0 5%;
     display: flex;
 }
@@ -124,6 +123,9 @@ Entries Show
 .entry-content-container {
     width: 50%;
     padding: 5%;
+    border-left: 1px solid rgb(216, 216, 216);
+    border-right: 1px solid rgb(216, 216, 216);
+    border-bottom: 1px solid rgb(216, 216, 216);
 }
 
 .entry-img {
@@ -131,6 +133,90 @@ Entries Show
     max-height: 450px;
 }
 
+.entry-favorite-container {
+    margin-top: 10px;
+    padding: 5px;
+    background: rgb(104, 102, 99);
+    display: flex;
+    justify-content: space-between;
+}
+
+.entry-favorite {
+    font-size: .9em;
+    padding-left: 10px;
+    color: white;
+}
+
+.entry-controls {
+    display: flex;
+}
+
+.entry-controls form {
+    margin-left: 10px;
+}
+
+/* 
+-------------------------------
+Comments
+------------------------------- 
+*/
+
+.comments-container {
+    margin-top: 10%;
+    background: rgb(233, 233, 233);
+    padding: 5%;
+}
+
+.comments-container > h5 {
+    font-weight: normal;
+    color: rgb(71, 117, 133);
+}
+
+.comments {
+    border: 1px solid rgb(180, 180, 180);
+    background: white;
+    padding: 5%;
+}
+
+.comments-footer {
+    background: rgb(233, 233, 233);
+    font-size: .8em;
+    display: flex;
+    justify-content: space-around;
+}
+.comments-footer > a{
+    color: blue;
+}
+
+.comment-form {
+    padding-top: 3%;
+}
+
+/* 
+-------------------------------
+Home Page
+------------------------------- 
+*/
+.home-background {
+    background: url("https://i.imgur.com/ii8hmpR.jpg");
+    background-size: cover;
+    height: 400px;
+}
+
+.home-content {
+    height: 800px;
+    width: 80%;
+    margin: auto;
+}
+
+.home-header {
+    color: white;
+    padding: 5%;
+}
+
+.featured-content {
+    background: white;
+}
 
 /* 
 -------------------------------
@@ -157,5 +243,9 @@ Media Queries
     }
     .entry-img-container, .entry-content-container {
         width: 100%;
+        border: 0px;
+    }
+    .home-content {
+        width: 95%;
     }
 }
