@@ -113,7 +113,7 @@ usersRouter.get('/:username', (req, res) => {
                                 owner = true;
                             }
                         }
-                        res.render('./users/index.ejs', {
+                        res.render('./users/show.ejs', {
                             currentUser: req.session.currentUser,
                             user: result,
                             userEntries: userEntries,

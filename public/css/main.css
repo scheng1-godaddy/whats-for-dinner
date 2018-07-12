@@ -197,10 +197,14 @@ Comments
 Home Page
 ------------------------------- 
 */
+.home-body {
+    background: rgb(233, 233, 233);
+}
+
 .home-background {
     background: url("https://i.imgur.com/ii8hmpR.jpg");
     background-size: cover;
-    height: 400px;
+    height: 550px;
 }
 
 .home-content {
@@ -216,6 +220,13 @@ Home Page
 
 .featured-content {
     background: white;
+    border: 1px solid grey;
+    text-align: center;
+}
+
+.feature-heading {
+    margin-top: 15px;
+    font-size: 2em;
 }
 
 /* 

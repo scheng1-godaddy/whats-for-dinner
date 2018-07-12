@@ -5,19 +5,31 @@
     <% include ./partials/head %>
 </head>
 
-<body>
+<body class="home-body">
     <div class="container-fluid">
         <% include ./partials/nav %>
         <div class="home-background">
             <div class="home-content">
                 <div class="home-header">
-                    <h5>Welcome to<h5>
-                    <h1>What's For Dinner!</h1>
-                    <p>share, discover, connect</p>
+                    <p class="lead">Welcome to</p>
+                    <h1 class="display-4">What's For Dinner?</h1>
+                    <p class="lead">share, discover, connect</p>
                 </div>
                 <div class="featured-content">
+                    <h2 class="display-4 feature-heading">Featured Entries</h2>
                     <div class= "entries-container">
-
+                        <% if (userEntries) { %>
+                            <% for(let i=0; i < userEntries.length; i++) { %>
+                                <div class="entry-preview">
+                                    <a href="/entries/<%=userEntries[i]._id%>">
+                                        <img src="<%=userEntries[i].img[0]%>" alt="">
+                                        <div class="entry-preview-info">
+                                            <%=userEntries[i].title%>
+                                        </div>
+                                    </a>
+                                </div>
+                            <% } %>
+                        <% } %>
                     </div>
                 </div>
             </div>

@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const bcrypt = require('bcrypt');
+const Entries = require('./models/entries.js');
 
 /*---------------------------------------------------
 Middleware
@@ -39,9 +40,16 @@ app.use('/entries', entriesController);
 /*---------------------------------------------------
 Base route
 ---------------------------------------------------*/
+
 app.get('/', (req, res) => {
-  res.render('index.ejs', {
-    currentUser: req.session.currentUser
+  // Get the latest entries
+  Entries.find({}).sort({ date: -1 }).limit(3).exec((err, result) => {
+    if (!err && result) {
+      res.render('index.ejs', {
+        currentUser: req.session.currentUser,
+        userEntries: result
+      })
+    }
   })
 })
 
