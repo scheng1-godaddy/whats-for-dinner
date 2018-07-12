@@ -69,7 +69,7 @@ entriesRouter.get('/:entryId/favorite', (req, res) => {
             (err, result) => {
                 if (!err && result) {
                     // Add to current session
-                    if (req.session.favorite) {
+                    if (req.session.currentUser.favorites) {
                         req.session.currentUser.favorites.push(req.params.entryId);
                     } else {
                         req.session.currentUser.favorites = [req.params.entryId];
