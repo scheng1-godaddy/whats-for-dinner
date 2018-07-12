@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Life+Savers|Raleway');
+
 body, html {
     padding: 0;
     margin: 0;
@@ -6,6 +8,19 @@ body, html {
 .container-fluid {
     margin-top: 70px;
     padding: 0;
+}
+
+/* 
+-------------------------------
+Nav and title styling
+------------------------------- 
+*/
+.navbar-brand, .main-title {
+    font-family: 'Life Savers', cursive;
+}
+
+.nav-item {
+    font-family: 'Raleway', sans-serif;
 }
 
 /* 
@@ -249,6 +264,18 @@ Home Page
 Forms
 ------------------------------- 
 */
+
+.form-background {
+    background: url("https://i.imgur.com/bYX50NG.jpg");
+    background-size: cover;
+    height: 550px;
+}
+
+.form-header {
+    color: white;
+    padding: 5% 12%;
+}
+
 .form-content {
     min-height: 700px;
     width: 75%;
