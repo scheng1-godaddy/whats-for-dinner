@@ -229,6 +229,14 @@ Home Page
     font-size: 2em;
 }
 
+.home-entries-container {
+    width: 100%;
+    padding: 2% 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 /* 
 -------------------------------
 Media Queries

@@ -8,6 +8,21 @@ const Entries = require('../models/entries.js');
 const moment = require('moment');
 
 /*---------------------------------------------------
+Route (GET) for index
+---------------------------------------------------*/
+entriesRouter.get('/', (req, res) => {
+    // Get the latest entries
+    Entries.find({}).sort({ date: -1 }).exec((err, result) => {
+        if (!err && result) {
+            res.render('./entries/index.ejs', {
+                currentUser: req.session.currentUser,
+                userEntries: result
+            })
+        }
+    })
+})
+
+/*---------------------------------------------------
 Route (GET) for new entry form
 ---------------------------------------------------*/
 entriesRouter.get('/new', (req, res) => {

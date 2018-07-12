@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body class="home-body">
+    <div class="container-fluid">
+        <% include ../partials/nav %>
+            <div class="home-background">
+                <div class="home-content">
+                    <div class="home-header">
+                        <h1 class="display-4">Discover new food</h1>
+                    </div>
+                    <div class="featured-content">
+                        <h2 class="display-4 feature-heading">All Entries</h2>
+                        <div class="home-entries-container">
+                            <% if (userEntries) { %>
+                                <% for(let i=0; i < userEntries.length; i++) { %>
+                                    <div class="entry-preview">
+                                        <a href="/entries/<%=userEntries[i]._id%>">
+                                            <img src="<%=userEntries[i].img[0]%>" alt="">
+                                            <div class="entry-preview-info">
+                                                <%=userEntries[i].title%>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <% } %>
+                                        <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <% include ../partials/script %>
+</body>
+
+</html>
