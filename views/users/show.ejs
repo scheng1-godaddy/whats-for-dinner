@@ -30,6 +30,10 @@
         <% } %>
         
         <!-- Entries section -->
+        <div class="user-section-heading">
+            <h2 class="display-4 feature-heading">My Creations</h2>
+        </div>
+        
         <div class="entries-container">
             <% if (userEntries) { %>
                 <% for(let i=0; i < userEntries.length; i++) { %>
@@ -44,6 +48,27 @@
                 <% } %>
             <% } %>
         </div>
+
+        <% if (owner) { %>
+            <!-- favorites section -->
+            <div class="user-section-heading">
+                <h2 class="display-4 feature-heading">My Favorites</h2>
+            </div>
+            <div class="entries-container">
+                <% if (currentUser && favEntries) { %>
+                    <% for(let i=0; i < favEntries.length; i++) { %>
+                        <div class="entry-preview">
+                            <a href="/entries/<%=favEntries[i]._id%>">
+                                <img src="<%=favEntries[i].img[0]%>" alt="">
+                                <div class="entry-preview-info">
+                                    <%=favEntries[i].title%>
+                                </div>
+                            </a>
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
+        <% } %>
     </div>
     <% include ../partials/script %>
 </body>

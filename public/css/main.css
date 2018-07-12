@@ -63,6 +63,13 @@ User page
     font-size: .6em;
 }
 
+.user-section-heading {
+    margin: auto;
+    width: 70%;
+    text-align: center;
+    border-bottom: 1px solid rgb(201, 201, 201);
+}
+
 
 /* 
 -------------------------------

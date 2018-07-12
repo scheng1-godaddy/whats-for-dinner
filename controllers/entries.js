@@ -40,7 +40,11 @@ Route (POST) to create new entry
 ---------------------------------------------------*/
 entriesRouter.post('/', (req, res) => {
     if (req.session.currentUser) {
-        req.body.img = req.body.img.filter(Boolean);
+        if (!req.body.img || req.body.img.length === 0) {
+            req.body.img = ["http://via.placeholder.com/600x500"]
+        } else {
+            req.body.img = req.body.img.filter(Boolean);
+        }
         req.body.owner = req.session.currentUser._id;
         req.body.favorited = 0;
         Entries.create(req.body, (err, data) => {
@@ -60,13 +64,17 @@ Route (GET) to add favorite
 ---------------------------------------------------*/
 entriesRouter.get('/:entryId/favorite', (req, res) => {
     if (req.session.currentUser) {
-        let favorite = {date: new Date(), entryid: req.params.entryId};
         Users.findOneAndUpdate({_id: req.session.currentUser._id}, 
-            {$push: {favorites: favorite} }, 
+            { $push: { favorites: req.params.entryId} }, 
             (err, result) => {
                 if (!err && result) {
                     // Add to current session
-                    req.session.currentUser.favorites.push(favorite)
+                    if (req.session.favorite) {
+                        req.session.currentUser.favorites.push(req.params.entryId);
+                    } else {
+                        req.session.currentUser.favorites = [req.params.entryId];
+                    }
+                    
                     //Increment the counter
                     Entries.findByIdAndUpdate(req.params.entryId, 
                         {$inc: {favorited: 1}}, 
@@ -109,12 +117,12 @@ Route (DELETE) to remove favorite
 entriesRouter.delete('/:entryId/favorite', (req, res) => {
     if (req.session.currentUser) {
         Users.findOneAndUpdate({ _id: req.session.currentUser._id },
-            { $pull: { favorites: { entryid: req.params.entryId} } },
+            { $pull: { favorites: req.params.entryId } },
             (err, result) => {
                 if (!err && result) {
                     // Remove from current session
                     req.session.currentUser.favorites = req.session.currentUser.favorites.filter((fav) => {
-                        fav.entryid !== req.params.entryId;
+                        fav !== req.params.entryId;
                     })
                     //decrement the counter
                     Entries.findByIdAndUpdate(req.params.entryId,

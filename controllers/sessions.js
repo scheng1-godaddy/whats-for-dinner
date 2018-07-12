@@ -33,15 +33,13 @@ sessionsRouter.post('/', (req, res) => {
         if (foundUser) {
             if (bcrypt.compareSync(req.body.password, foundUser.password)) {
                 req.session.currentUser = foundUser;
-                // res.redirect('/users/'+foundUser.username);
-                res.redirect('/');
+                res.redirect('/users/'+foundUser.username);
             } else {
                 res.send('wrong password');
             }
         } else {
             res.send('Wrong username')
         }
-
     });
 })
 

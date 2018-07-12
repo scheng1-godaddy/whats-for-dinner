@@ -7,10 +7,7 @@ const userSchema = new mongoose.Schema({
     lname: String,
     public: Boolean,
     img: String,
-    favorites: [{
-        date: Date,
-        entryid: String
-    }]
+    favorites: [String]
 }, { timestamps: true })
 
 module.exports = mongoose.model('User', userSchema);

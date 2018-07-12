@@ -135,14 +135,49 @@ usersRouter.get('/:username', (req, res) => {
                             if (req.session.currentUser.username === req.params.username) {
                                 // If accessing own page, set owner flag
                                 owner = true;
+                                
+                                console.log('current user favorites', req.session.currentUser.favorites);
+                                
+                                // Grab the favorites
+                                Entries.find({_id: {$in:req.session.currentUser.favorites}}, (favErr, favResult) => {
+                                    console.log('fav result', favResult);
+                                    
+                                    if (!favErr && favResult) {
+                                        res.render('./users/show.ejs', {
+                                            currentUser: req.session.currentUser,
+                                            user: result,
+                                            userEntries: userEntries,
+                                            owner: owner,
+                                            favEntries: favResult
+                                        })
+                                    } else {
+                                        res.render('./users/show.ejs', {
+                                            currentUser: req.session.currentUser,
+                                            user: result,
+                                            userEntries: userEntries,
+                                            owner: owner,
+                                            favEntries: []
+                                        })
+                                    }
+                                })
+                            } else {
+                                res.render('./users/show.ejs', {
+                                    currentUser: req.session.currentUser,
+                                    user: result,
+                                    userEntries: userEntries,
+                                    owner: owner,
+                                    favEntries: []
+                                })
                             }
+                        } else {
+                            res.render('./users/show.ejs', {
+                                currentUser: req.session.currentUser,
+                                user: result,
+                                userEntries: userEntries,
+                                owner: owner,
+                                favEntries: []
+                            })
                         }
-                        res.render('./users/show.ejs', {
-                            currentUser: req.session.currentUser,
-                            user: result,
-                            userEntries: userEntries,
-                            owner: owner
-                        })
                     }
                 })
             } else {

@@ -5,87 +5,42 @@
     <% include ../partials/head %>
 </head>
 
-<body>
+<body class="home-body">
     <div class="container-fluid">
         <% include ../partials/nav %>
-    
-        <% if(currentUser) { %>
-            You are logged in as <%=currentUser.username%>
-        <% } else { %>
-            You are not logged in
-        <% } %>
-        <h1>Edit Entry</h1>
-        <form action="/entries/<%=currentEntry.id%>?_method=PUT" method="POST">
-            <label for="title">Title</label>
-            <input id="title" type="text" name="title" value="<%=currentEntry.title%>">
-            <br />
-            <label for="description">Description</label>
-            <textarea name="description" id="description" cols="30" rows="10"><%=currentEntry.description%></textarea>
-            <br />
-            <label for="category">Category</label>
-            <select id="category" name="category">
-                <option <% if (currentEntry.category === "entree") { %> selected
-                    <% } %>
-                        value="entree">Entree</option>
-                <option <% if (currentEntry.category === "appetizer") { %> selected
-                    <% } %>
-                        value="appetizer">Appetizer</option>
-                <option <% if (currentEntry.category === "dessert") { %> selected
-                    <% } %>
-                        value="dessert">dessert</option>
-                <option <% if (currentEntry.category === "side") { %> selected
-                    <% } %>
-                        value="side">side</option>
-            </select>
-            <br />
-            <label for="flavors">Flavors</label>
-            <br />
-            <input
-            <% if (currentEntry.flavors.includes('salty')) { %>
-                checked
-            <% } %>
-            type="checkbox" name="flavors" value="salty">Salty
-            <br />
-            <input
-            <% if (currentEntry.flavors.includes('sweet')) { %>
-                checked
-            <% } %>
-            type="checkbox" name="flavors" value="sweet">Sweet
-            <br />
-            <input 
-            <% if (currentEntry.flavors.includes('savory')) { %>
-                checked
-            <% } %>
-            type="checkbox" name="flavors" value="savory">Savory
-            <br />
-            <input
-            <% if (currentEntry.flavors.includes('sour')) { %>
-                checked
-            <% } %>
-            type="checkbox" name="flavors" value="sour">Sour
-            <br />
-            <input
-            <% if (currentEntry.flavors.includes('spicy')) { %>
-                checked
-            <% } %>
-            type="checkbox" name="flavors" value="spicy">Spicy
-            <br />
-            <label for="img">Image URLs</label>
-            <br />
-            <input type="text" name="img" value="<%=currentEntry.img[0]%>">
-            <br />
-            <input type="text" name="img" value="<%=currentEntry.img[1]%>">
-            <br />
-            <input type="text" name="img" value="<%=currentEntry.img[2]%>">
-            <br />
-            <input type="text" name="img" value="<%=currentEntry.img[3]%>">
-            <br />
-            <input type="text" name="img" value="<%=currentEntry.img[4]%>">
-            <br />
-            <input type="submit">
-            <br />
-        </form>
+            <div class="home-background">
+                <div class="home-content">
+                    <div class="home-header">
+                        <h1 class="display-4">Edit Entry</h1>
+                    </div>
+                    <div class="form-content">
+                        <div class="form-entries-container">
+                            <form action="/entries/<%=currentEntry.id%>?_method=PUT" method="POST">
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input class="form-control" id="title" type="text" name="title" value="<%=currentEntry.title%>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control" name="description" id="description" cols="30" rows="10"><%=currentEntry.description%></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="img">Image URLs</label>
+                                    <input class="form-control" type="text" name="img" value="<%=currentEntry.img[0]%>">
+                                    <input class="form-control" type="text" name="img" value="<%=currentEntry.img[1]%>">
+                                    <input class="form-control" type="text" name="img" value="<%=currentEntry.img[2]%>">
+                                    <input class="form-control" type="text" name="img" value="<%=currentEntry.img[3]%>">
+                                    <input class="form-control" type="text" name="img" value="<%=currentEntry.img[4]%>">
+                                    <input class="form-control" type="text" name="img" value="<%=currentEntry.img[5]%>">
+                                </div>
+                                <input type="submit" class="btn btn-primary">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
     <% include ../partials/script %>
 </body>
+
 </html>
