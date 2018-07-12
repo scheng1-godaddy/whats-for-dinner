@@ -121,9 +121,14 @@ entriesRouter.delete('/:entryId/favorite', (req, res) => {
             (err, result) => {
                 if (!err && result) {
                     // Remove from current session
+                    console.log('favorite before removal - current session favorites', req.session.currentUser.favorites);
+                    
+                    
                     req.session.currentUser.favorites = req.session.currentUser.favorites.filter((fav) => {
-                        fav !== req.params.entryId;
+                        console.log(fav !== req.params.entryId);
+                        return fav !== req.params.entryId;
                     })
+                    console.log('favorite after removal - current session favorites', req.session.currentUser.favorites);
                     //decrement the counter
                     Entries.findByIdAndUpdate(req.params.entryId,
                         { $inc: { favorited: -1 } },
@@ -225,7 +230,7 @@ entriesRouter.get('/:entryId', (req, res) => {
             } else {
                 //Check favorites property to see if entry is present
                 for (let favorite of req.session.currentUser.favorites) {                        
-                    if(favorite.entryid === req.params.entryId) {
+                    if(favorite === req.params.entryId) {
                         console.log('They are a match');
                         foundFave = true;
                     }
