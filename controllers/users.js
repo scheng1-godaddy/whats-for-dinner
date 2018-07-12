@@ -9,6 +9,21 @@ const bcrypt = require('bcrypt');
 
 
 /*---------------------------------------------------
+Route (GET) for index
+---------------------------------------------------*/
+usersRouter.get('/', (req, res) => {
+    // Get the latest entries
+    Users.find({}).sort({ date: -1 }).exec((err, result) => {
+        if (!err && result) {
+            res.render('./users/index.ejs', {
+                currentUser: req.session.currentUser,
+                userEntries: result
+            })
+        }
+    })
+})
+
+/*---------------------------------------------------
 Route for new user form
 ---------------------------------------------------*/
 usersRouter.get('/new/', (req, res) => {
