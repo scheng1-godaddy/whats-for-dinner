@@ -1,6 +1,8 @@
 # What's For Dinner?
 
-A social site where users can share what they're having for dinner:
+A social site where users can share what they're having for dinner
+
+Hosted at: https://whatsfordinnerapp.herokuapp.com/
 
 Technologies: html, css, node.js, mongodb
 
